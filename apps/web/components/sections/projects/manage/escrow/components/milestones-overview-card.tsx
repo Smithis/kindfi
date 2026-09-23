@@ -47,12 +47,12 @@ export function MilestonesOverviewCard({ milestones }: MilestonesOverviewCardPro
 						const multiMilestone = milestone as MultiReleaseMilestone
 
 						return (
+							// No stable SDK id exists on milestone records (`milestone.id`
+							// must not be assumed), and description+amount collide on
+							// valid duplicates, so the array index is the
+							// normalized-record identity with a stable prefix.
 							<div
-								key={
-									isSingle
-										? `single:${milestone.description}`
-										: `multi:${multiMilestone.amount}:${milestone.description}`
-								}
+								key={`milestone-${index}`}
 								className="flex items-start justify-between p-4 rounded-lg border bg-card hover:bg-muted/50 transition-colors"
 							>
 								<div className="flex-1 space-y-2">
